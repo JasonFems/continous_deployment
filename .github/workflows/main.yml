@@ -1,7 +1,6 @@
 on:
   push:
-    branches:
-      - main
+    branches: ["main"]
 jobs:
 
   deploy:
@@ -21,14 +20,14 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           name: github-pages
-          path: './'
-          retention-days: 1
-          Run: tar
-            --dereference --hard-dereference
-            --directory "$INPUT_PATH"
-            -cvf "$RUNNER_TEMP/artifact.tar"
-            --exclude=.git
-            --exclude=.github
+          path: '.'
+          # retention-days: 1
+          # Run: tar
+          #   --dereference --hard-dereference
+          #   --directory "$INPUT_PATH"
+          #   -cvf "$RUNNER_TEMP/artifact.tar"
+          #   --exclude=.git
+          #   --exclude=.github
 
       - name: Deploy to Github Pages
         id: deployment
