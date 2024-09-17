@@ -22,6 +22,13 @@ jobs:
         with:
           name: github-pages
           path: ./
+          retention-days: 1
+          Run: tar
+            --dereference --hard-dereference
+            --directory "$INPUT_PATH"
+            -cvf "$RUNNER_TEMP/artifact.tar"
+            --exclude=.git
+            --exclude=.github
 
       - name: Deploy to Github Pages
         id: deployment
