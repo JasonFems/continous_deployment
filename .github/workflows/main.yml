@@ -2,31 +2,27 @@ on:
   push:
     branches:
       - main
-
 jobs:
 
   deploy:
+  
     permissions:
       pages: write
       id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Upload pages artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: github-pages
+          path: ./
 
-  environment:
-    name: github-pages
-    url: ${{ steps.deployment.outputs.page_url }}
-
-
-  runs-on:
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-    - name: Upload pages artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: github-pages
-
-        path: ./
-
-    - name: Deploy to Github Pages
-      id: deployment
-      uses: actions/deploy-pages@v4.0,5 or specific "vX.X.X" version tag for this action latest is 4.0.5
+      - name: Deploy to Github Pages
+        id: deployment
+        uses: actions/deploy-pages@v4.0,5 #or specific "vX.X.X" version tag for this action latest is 4.0.5
