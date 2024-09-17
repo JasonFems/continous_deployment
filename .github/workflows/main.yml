@@ -16,12 +16,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Upload pages artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
           name: github-pages
-          path: ./
+          path: './'
           retention-days: 1
           Run: tar
             --dereference --hard-dereference
@@ -32,4 +32,4 @@ jobs:
 
       - name: Deploy to Github Pages
         id: deployment
-        uses: actions/deploy-pages@v4.0.5 #or specific "vX.X.X" version tag for this action latest is 4.0.5
+        uses: actions/deploy-pages@v4 #or specific "vX.X.X" version tag for this action latest is 4.0.5
