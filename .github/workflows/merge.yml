@@ -1,0 +1,35 @@
+on:
+  pull_request:
+    branches: ["main"]
+    types: closed
+jobs:
+
+  deploy:
+  
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Upload pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          name: github-pages
+          path: '.'
+          # retention-days: 1
+          # Run: tar
+          #   --dereference --hard-dereference
+          #   --directory "$INPUT_PATH"
+          #   -cvf "$RUNNER_TEMP/artifact.tar"
+          #   --exclude=.git
+          #   --exclude=.github
+
+      - name: Deploy to Github Pages
+        id: deployment
+        uses: actions/deploy-pages@v4 #or specific "vX.X.X" version tag for this action latest is 4.0.5
